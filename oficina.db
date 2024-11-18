@@ -1,0 +1,40 @@
+-- Criação do banco de dados
+CREATE DATABASE OficinaDB;
+
+USE OficinaDB;
+
+-- Tabela Clientes
+CREATE TABLE Clientes (
+    id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- Tabela Veículos
+CREATE TABLE Veiculos (
+    id_veiculo INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT NOT NULL,
+    modelo VARCHAR(100),
+    ano INT,
+    placa VARCHAR(10),
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+-- Tabela Serviços
+CREATE TABLE Servicos (
+    id_servico INT AUTO_INCREMENT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) NOT NULL
+);
+
+-- Tabela Ordens de Serviço
+CREATE TABLE OrdensServico (
+    id_os INT AUTO_INCREMENT PRIMARY KEY,
+    id_veiculo INT NOT NULL,
+    id_servico INT NOT NULL,
+    data_servico DATE NOT NULL,
+    valor_final DECIMAL(10, 2),
+    FOREIGN KEY (id_veiculo) REFERENCES Veiculos(id_veiculo),
+    FOREIGN KEY (id_servico) REFERENCES Servicos(id_servico)
+);
